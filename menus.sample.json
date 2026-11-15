@@ -1,0 +1,15 @@
+{
+  "Indian": [
+    {"name": "Chicken Biryani", "price": 14.99},
+    {"name": "Paneer Tikka", "price": 12.99, "tags": ["veg"]},
+    {"name": "Garlic Naan", "price": 3.99}
+  ],
+  "Italian": [
+    {"name": "Penne Alfredo", "price": 14.99},
+    {"name": "Margherita Pizza", "price": 13.99}
+  ],
+  "Mexican": [
+    {"name": "Chicken Tacos (3)", "price": 11.97},
+    {"name": "Veggie Burrito", "price": 10.99, "tags": ["veg"]}
+  ]
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="One conversation. Every craving. A multi-restaurant conversational ordering demo.">
+  <title>334 Food Now · Your table, all together</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="334 Food Now home"><span class="brand-mark">334<span>↗</span></span><span>FOOD NOW<span class="brand-caption">GOOD FOOD. ONE CONVERSATION.</span></span></a>
+    <nav aria-label="Demo controls"><span class="mode"><span class="dot"></span><span id="mode">Connecting</span></span><button id="restart" class="text-button">↻ <span>Start fresh</span></button></nav>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow"><span></span> A SEAT FOR EVERY CRAVING</p><h1 id="hero-title">Many menus.<br>One <em>conversation.</em></h1><p class="intro">Biryani for you. Pasta for them. Bring everyone’s favorites together, one delicious order at a time.</p><a class="hero-cta" href="#conversation">Let’s order together <span>↗</span></a><p class="hero-note">Three cuisines. One cart. Zero back-and-forth.</p></div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="art-spark">✳</span><span class="art-label label-top">A LITTLE OF EVERYTHING</span><div class="plate"><div class="plate-inner"><span class="food food-one">🍛</span><span class="food food-two">🍝</span><span class="food food-three">🌮</span><span class="plate-word">good together.</span></div></div><span class="art-label label-bottom">YOUR NEXT FAVORITE MEAL ↗</span><span class="art-leaf">✦</span></div>
+    </section>
+    <div class="section-heading"><div><p class="eyebrow">THE ORDERING TABLE</p><h2>What are you in the mood for?</h2></div><span class="demo-label">INTERACTIVE DEMO <span>•</span> NO REAL ORDERS</span></div>
+    <section class="workspace" aria-label="Ordering demo">
+      <aside class="panel menu-panel" aria-labelledby="menu-title"><div class="panel-heading"><h3 id="menu-title">Explore the menu</h3><span id="dish-count" class="small-count"></span></div><div id="filters" class="filters" role="group" aria-label="Filter restaurants"></div><div id="menu" class="menu-list"></div><p class="menu-note">Sample menu · Prices in USD<br>Dietary tags reflect the supplied menu.</p></aside>
+      <section id="conversation" class="panel chat-panel" aria-labelledby="chat-title"><div class="chat-heading"><span class="assistant-avatar">✳</span><div><h3 id="chat-title">Your food concierge</h3><p><span class="dot"></span> <span id="assistant-status">Ready when you are</span></p></div><span class="chat-badge">334</span></div><div class="chat-body"><p class="chat-date">A GOOD MEAL STARTS HERE</p><div id="messages" role="log" aria-live="polite" aria-label="Order conversation"></div><div id="typing" class="typing" hidden>Putting it all together<span>•••</span></div></div><div class="chat-bottom"><p id="prompt-label" class="prompt-label">A LITTLE INSPIRATION</p><div id="suggestions" class="suggestions"></div><form id="chat-form"><label class="sr-only" for="message">Message your food concierge</label><input id="message" name="message" placeholder="Tell us what sounds good…" maxlength="1000" autocomplete="off" required><button id="send" type="submit" aria-label="Send message">↗</button></form><p class="privacy-note" id="privacy-note">Rehearsal · Menu matching only · No texts or payments</p><p id="error" class="error" role="alert" hidden></p></div></section>
+      <aside class="panel order-panel" aria-labelledby="order-title"><div class="panel-heading"><h3 id="order-title">Your order</h3><span id="item-count" class="small-count">0 items</span></div><div class="receipt-caption">A LITTLE FROM HERE, A LITTLE FROM THERE.</div><div id="cart"></div><div id="delivery" class="delivery-card"><div><span>↗</span><strong id="delivery-title">Good things add up.</strong></div><p id="delivery-note">Free delivery on food orders over $50.</p><progress id="delivery-progress" max="5001" value="0" aria-label="Progress toward free delivery"></progress></div><dl class="totals"><div><dt>Food subtotal</dt><dd id="subtotal">$0.00</dd></div><div><dt>Tax <span>(8.25%)</span></dt><dd id="tax">$0.00</dd></div><div><dt>Delivery</dt><dd id="delivery-price">—</dd></div><div class="total"><dt>Total</dt><dd id="total">$0.00</dd></div></dl><button id="checkout" class="primary-button" disabled>Start with something delicious <span>↗</span></button><div id="confirmation" class="confirmation" hidden></div><button id="download" class="text-button download" hidden>↓ Download demo receipt</button><p class="order-footnote">Demo checkout only. Use fictional details.<br>Nothing is charged or sent to a restaurant.</p></aside>
+    </section>
+    <section class="how-it-works" aria-label="How it works"><div><span>01 /</span><h3>Follow your cravings.</h3><p>Browse three cuisines or ask what’s on the menu.</p></div><div><span>02 /</span><h3>Make it a conversation.</h3><p>Mix restaurants, add a dish, and watch your cart come together.</p></div><div><span>03 /</span><h3>All together, at checkout.</h3><p>Review one total and get a demo confirmation.</p></div></section>
+  </main>
+  <footer class="wrap"><span>334 FOOD NOW <span class="footer-star">✳</span> MADE FOR EVERY CRAVING.</span><span>A conversational ordering prototype.</span></footer>
+</body>
+</html>
