@@ -1,0 +1,50 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {createDemo}=require('../static/demo-engine.js');
+const sample=JSON.parse(fs.readFileSync(path.join(__dirname,'../menus.sample.json'),'utf8'));
+const menus=Object.fromEntries(Object.entries(sample).map(([restaurant,items]) => [restaurant,Object.fromEntries(items.map(i => [i.name,i]))]));
+const message=(demo,text) => demo.api('/api/message',{message:text});
+
+test('sample order, notes, tax, free delivery, and confirmation',async () => {
+  const demo=createDemo(menus);
+  let state=await message(demo,'Two chicken biryanis, one mild, and a penne Alfredo. Is delivery free?');
+  assert.equal(state.totals.subtotal_cents,4497);
+  assert.match(state.transcript.at(-1).assistant,/\$5\.04/);
+  assert.equal(state.cart.Indian[0].notes,'mild');
+  assert.equal(state.cart.Indian[1].notes,'');
+  state=await message(demo,'Add chicken tacos');
+  assert.equal(state.totals.subtotal_cents,5694);
+  assert.equal(state.totals.tax_cents,470);
+  assert.equal(state.totals.delivery_cents,0);
+  assert.equal(state.totals.total_cents,6164);
+  assert.equal((await message(demo,'checkout')).stage,'name');
+  await message(demo,'Alex Morgan');
+  state=await message(demo,'123 Demo Lane, Sample City');
+  assert.match(state.transcript.at(-1).assistant,/No text will be sent/);
+  state=await message(demo,'yes');
+  assert.equal(state.stage,'confirmed');
+  assert.match(state.confirmation,/\$61\.64/);
+  await assert.rejects(demo.api('/api/cart',{restaurant:'Indian',name:'Garlic Naan'}));
+});
+test('separate visitors, reset, browsing, and trusted menu pricing',async () => {
+  const first=createDemo(menus),second=createDemo(menus);
+  assert.deepEqual((await message(first,'Do you have chicken biryani?')).cart,{});
+  let state=await first.api('/api/cart',{restaurant:'Indian',name:'Garlic Naan',price:0});
+  assert.equal(state.totals.subtotal_cents,399);
+  assert.deepEqual((await second.api('/api/session')).cart,{});
+  state=await first.api('/api/cart',{restaurant:'Indian',name:'Garlic Naan',action:'remove'});
+  assert.deepEqual(state.cart,{});
+  assert.equal((await message(first,'checkout')).stage,'cart');
+  await message(first,'Add chicken tacos');
+  assert.deepEqual((await first.api('/api/reset')).cart,{});
+  await assert.rejects(message(first,'x'.repeat(1001)));
+});
+test('invalid quantities are rejected and checkout can go back',async () => {
+  const demo=createDemo(menus);
+  assert.deepEqual((await message(demo,'Add 99 chicken biryanis')).cart,{});
+  await message(demo,'Add chicken tacos');
+  await message(demo,'checkout'); await message(demo,'Alex'); await message(demo,'123 Demo Lane');
+  assert.equal((await message(demo,'no')).stage,'cart');
+});

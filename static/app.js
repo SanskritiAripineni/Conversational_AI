@@ -6,6 +6,7 @@ const icons = {'Chicken Biryani':'🍛','Paneer Tikka':'🥘','Garlic Naan':'�
 function node(tag, className, text) { const e = document.createElement(tag); if(className) e.className = className; if(text !== undefined) e.textContent = text; return e; }
 function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
 async function api(path, data) {
+  if (window.FoodNowDemo) return window.FoodNowDemo.api(path, data);
   const result = await fetch(path, data === undefined ? {} : {method:'POST',headers:{'Content-Type':'application/json','X-Demo-Token':token},body:JSON.stringify(data)});
   const body = await result.json();
   if (!result.ok) throw new Error(body.error || 'Something went wrong. Please try again.');
