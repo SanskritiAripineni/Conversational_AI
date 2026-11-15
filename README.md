@@ -47,7 +47,7 @@ The hosted version is a **browser-only rehearsal**, using local menu matching ra
 
 Delivery is $4.99 through a $50.00 food subtotal and free **over** $50.00. The interface also supports cart removal, reset, smaller screens, keyboard navigation, and reduced motion.
 
-## Which link should I share?
+## Links
 
 | Link | Who can open it? |
 | --- | --- |
